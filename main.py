@@ -16,18 +16,25 @@ import tempfile
 from reportlab.pdfgen import canvas
 
 def txt_to_pdf(txt_file, pdf_file):
-       print(10)
-       c = canvas.Canvas(pdf_file)
-       with open(txt_file, "r") as f:
-           text = f.read()
-           print(text)
-           # Adjust parameters (font, size, spacing) as needed
-           textobject = c.beginText(50, 750)
-           textobject.setFont("Helvetica", 12)
-           for line in text.splitlines():
-               textobject.textLine(line)
-           c.drawText(textobject)
-       c.save()
+    c = canvas.Canvas(pdf_file)
+    with open(txt_file, "r") as f:
+        text = f.read()
+    
+    # Configure text object
+    textobject = c.beginText(50, 750)
+    textobject.setFont("Helvetica", 12)
+    line_height = 14
+
+    for line in text.splitlines():
+        textobject.textLine(line)
+        if textobject.getY() < 50:  # If bottom margin is reached
+            c.drawText(textobject)
+            c.showPage()
+            textobject = c.beginText(50, 750)
+            textobject.setFont("Helvetica", 12)
+    
+    c.drawText(textobject)
+    c.save()
 
 class AudioTranscriber:
     def __init__(self, groq_api_key):
@@ -134,9 +141,7 @@ def main(course_name,groq_api_key):
     transcription = transcriber.transcribe_audio(filename)
     print(7)
     if transcription:
-        print(8)
-        # Get course name from user
-        #course_name =
+       
 
         # Save transcription
         with open("transcription.txt", "w", encoding="utf-8") as f:
