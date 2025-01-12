@@ -183,21 +183,4 @@ def main(course_name,groq_api_key):
 
 
 
-# In[5]:
-
-
-
-
-
-
-# def main1():
-#        if os.path.exists(r"C:\Users\user\Shipathon\notes.pdf"):
-#         os.remove(r"C:\Users\user\Shipathon\notes.pdf")
-#         print("file deleted ")
-#         main()
-#        else:
-#         main()
-
-# from google.colab import files
-# files.download('notes.pdf')
 
