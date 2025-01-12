@@ -25,7 +25,7 @@ st.write("Made By Monisha Bangar-2025")
 st.header("Key Features:")
 st.write("""
          1. Speech-to-Text Conversion: Convert audio files into detailed, editable text notes with high accuracy.\n
-    2. Multiple Formats: Upload audio in popular formats like MP3, WAV, or M4A.\n
+    2. Multiple Formats: Upload audio in popular formats like MP3, MPEG,MP4 . \n
     3. Smart Structuring: Automatically organizes notes into headings, bullet points, and paragraphs for readability.\n
     4. Multi-Language Support: Transcribe audio in various languages with ease.\n
     """)
