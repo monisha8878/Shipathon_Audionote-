@@ -31,7 +31,7 @@ client=Groq(api_key=groq_api_key)
 
 st.title('Welcome To Audionote! 😊')
 st.write("Transform your audio into clear, structured notes effortlessly! Whether you're recording lectures, meetings, or brainstorming sessions, this app converts spoken content into accurate text notes in seconds. Perfect for students, professionals, and anyone who wants to save time and stay organized.")
-
+st.write("Made By Monisha Bangar-2025")
 st.header("Key Features:")
 st.write("""
          1. Speech-to-Text Conversion: Convert audio files into detailed, editable text notes with high accuracy.\n
