@@ -158,16 +158,16 @@ def main(course_name,groq_api_key):
 
 
 
-if __name__ == "__main__":
-    
-    
-    if os.path.exists(r"C:\Users\user\Shipathon\notes.pdf"):
-        os.remove(r"C:\Users\user\Shipathon\notes.pdf")
-        print("file deleted ")
-        main()
-    else:
-        main()
-    
+
+
+
+if os.path.exists(r"C:\Users\user\Shipathon\notes.pdf"):
+ os.remove(r"C:\Users\user\Shipathon\notes.pdf")
+ print("file deleted ")
+ main()
+else:
+ main()
+
 # from google.colab import files
 # files.download('notes.pdf')
 
