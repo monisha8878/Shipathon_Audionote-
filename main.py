@@ -16,26 +16,6 @@ import tempfile
 from reportlab.pdfgen import canvas
 from textwrap import wrap
 
-# def txt_to_pdf(txt_file, pdf_file):
-#     c = canvas.Canvas(pdf_file)
-#     with open(txt_file, "r") as f:
-#         text = f.read()
-    
-#     # Configure text object
-#     textobject = c.beginText(50, 750)
-#     textobject.setFont("Helvetica", 12)
-#     line_height = 14
-
-#     for line in text.splitlines():
-#         textobject.textLine(line)
-#         if textobject.getY() < 50:  # If bottom margin is reached
-#             c.drawText(textobject)
-#             c.showPage()
-#             textobject = c.beginText(50, 750)
-#             textobject.setFont("Helvetica", 12)
-    
-#     c.drawText(textobject)
-#     c.save()
 
 
 # def txt_to_pdf(txt_file, pdf_file):
@@ -65,7 +45,7 @@ from textwrap import wrap
 #     # Draw remaining text and save
 #     c.drawText(textobject)
 #     c.save()
-from reportlab.pdfgen import canvas
+
 
 # def txt_to_pdf(txt_file, pdf_file):
 #     c = canvas.Canvas(pdf_file)
@@ -78,58 +58,51 @@ from reportlab.pdfgen import canvas
 #     line_height = 14
 #     max_width = 500  # Adjust based on page width (assuming 50px margin on each side)
 
-#     # Split text into lines
-#     words = text.split()
-#     current_line = ""
-    
-#     for word in words:
-#         # Try adding the word to the current line
-#         temp_line = current_line + " " + word if current_line else word
-#         # Check if the new line exceeds the max width
-#         textobject.textLine(temp_line)
-#         if textobject.getY() < 50:  # If bottom margin is reached
-#             c.drawText(textobject)
-#             c.showPage()  # Create a new page
-#             textobject = c.beginText(50, 750)  # Reset position for new page
-#             textobject.setFont("Helvetica", 12)
-        
-#         # Add the word to the current line or move to the next line
-#         if textobject.stringWidth(temp_line) < max_width:
-#             current_line = temp_line  # Word fits, continue on the same line
-#         else:
-#             c.drawText(textobject)
-#             c.showPage()  # Create a new page
-#             textobject = c.beginText(50, 750)  # Reset position for new page
-#             textobject.setFont("Helvetica", 12)
-#             current_line = word  # Start new line with this word
-
-#     # Draw remaining text and save
-#     c.drawText(textobject)
-#     c.save()
-
 def txt_to_pdf(txt_file, pdf_file):
     c = canvas.Canvas(pdf_file)
     with open(txt_file, "r") as f:
         text = f.read()
-    
+
     # Configure text object
-    textobject = c.beginText(50, 750)
+    textobject = c.beginText(50, 750)  # Initial position: (x, y)
     textobject.setFont("Helvetica", 12)
     line_height = 14
-    max_width = 500  # Maximum width in points for wrapping (adjust as needed)
+    max_chars_per_line = 90  # Adjust for the page width and font size
 
     for line in text.splitlines():
-        wrapped_lines = wrap(line, width=max_width // 7)  # Approx. 7 points per char for Helvetica, size 12
-        for wrapped_line in wrapped_lines:
-            textobject.textLine(wrapped_line)
+        words = line.split()  # Split the line into words
+        current_line = ""
+
+        for word in words:
+            if len(current_line) + len(word) + 1 <= max_chars_per_line:
+                # Add the word to the current line
+                if current_line:
+                    current_line += " "
+                current_line += word
+            else:
+                # Add the current line to the text object
+                textobject.textLine(current_line)
+                if textobject.getY() < 50:  # If bottom margin is reached
+                    c.drawText(textobject)
+                    c.showPage()  # Create a new page
+                    textobject = c.beginText(50, 750)  # Reset position for new page
+                    textobject.setFont("Helvetica", 12)
+                current_line = word  # Start a new line with the current word
+
+        # Add the last line in the paragraph
+        if current_line:
+            textobject.textLine(current_line)
             if textobject.getY() < 50:  # If bottom margin is reached
                 c.drawText(textobject)
-                c.showPage()
-                textobject = c.beginText(50, 750)
+                c.showPage()  # Create a new page
+                textobject = c.beginText(50, 750)  # Reset position for new page
                 textobject.setFont("Helvetica", 12)
-    
+
+    # Draw remaining text and save
     c.drawText(textobject)
     c.save()
+
+
 
 class AudioTranscriber:
     def __init__(self, groq_api_key):
