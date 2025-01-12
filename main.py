@@ -106,8 +106,7 @@ def txt_to_pdf(txt_file, pdf_file):
     c.drawText(textobject)
     c.save()
 
-# Example usage:
-txt_to_pdf("example.txt", "output.pdf")
+
 
 class AudioTranscriber:
     def __init__(self, groq_api_key):
