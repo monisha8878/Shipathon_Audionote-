@@ -14,17 +14,7 @@ groq_api_key = st.secrets['GROQ_API_KEY']
 
 client=Groq(api_key=groq_api_key)
 
-# def txt_to_pdf(txt_file, pdf_file):
-#        c = canvas.Canvas(pdf_file)
-#        with open(txt_file, "r") as f:
-#            text = f.read()
-#            # Adjust parameters (font, size, spacing) as needed
-#            textobject = c.beginText(50, 750)
-#            textobject.setFont("Helvetica", 12)
-#            for line in text.splitlines():
-#                textobject.textLine(line)
-#            c.drawText(textobject)
-#        c.save()
+
 
 
 
