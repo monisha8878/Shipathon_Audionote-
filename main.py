@@ -1,8 +1,5 @@
 
 
-from groq import Groq
-
-import os
 
 # Load the .env file
 #load_dotenv()
