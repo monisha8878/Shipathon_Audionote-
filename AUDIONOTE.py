@@ -30,7 +30,7 @@ st.write("""
     4. Multi-Language Support: Transcribe audio in various languages with ease.\n
     """)
 
-audio_file = st.file_uploader("Upload your audio file", type=["mp3", "wav", "m4a", "mpeg"])
+audio_file = st.file_uploader("Upload your audio file", type=["mp3", "mp4", "mpeg"])
 
 if audio_file is not None:
     # Save the uploaded file temporarily
