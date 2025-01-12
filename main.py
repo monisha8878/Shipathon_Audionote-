@@ -15,24 +15,53 @@ import math
 import tempfile
 from reportlab.pdfgen import canvas
 
+# def txt_to_pdf(txt_file, pdf_file):
+#     c = canvas.Canvas(pdf_file)
+#     with open(txt_file, "r") as f:
+#         text = f.read()
+    
+#     # Configure text object
+#     textobject = c.beginText(50, 750)
+#     textobject.setFont("Helvetica", 12)
+#     line_height = 14
+
+#     for line in text.splitlines():
+#         textobject.textLine(line)
+#         if textobject.getY() < 50:  # If bottom margin is reached
+#             c.drawText(textobject)
+#             c.showPage()
+#             textobject = c.beginText(50, 750)
+#             textobject.setFont("Helvetica", 12)
+    
+#     c.drawText(textobject)
+#     c.save()
+from reportlab.pdfgen import canvas
+
 def txt_to_pdf(txt_file, pdf_file):
     c = canvas.Canvas(pdf_file)
     with open(txt_file, "r") as f:
         text = f.read()
     
     # Configure text object
-    textobject = c.beginText(50, 750)
+    textobject = c.beginText(50, 750)  # Initial position: (x, y)
     textobject.setFont("Helvetica", 12)
     line_height = 14
 
     for line in text.splitlines():
-        textobject.textLine(line)
         if textobject.getY() < 50:  # If bottom margin is reached
             c.drawText(textobject)
-            c.showPage()
-            textobject = c.beginText(50, 750)
+            c.showPage()  # Create a new page
+            textobject = c.beginText(50, 750)  # Reset position for new page
             textobject.setFont("Helvetica", 12)
-    
+        
+        # Break long lines that exceed the page width (optional)
+        max_chars = 90  # Adjust based on font size and page width
+        while len(line) > max_chars:
+            textobject.textLine(line[:max_chars])
+            line = line[max_chars:]
+        textobject.textLine(line)  # Add remaining part of the line
+
+    # Draw remaining text and save
     c.drawText(textobject)
     c.save()
 
