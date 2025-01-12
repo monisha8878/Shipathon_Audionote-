@@ -2,4 +2,3 @@ streamlit
 reportlab
 groq
 soundfile
-tempfile
